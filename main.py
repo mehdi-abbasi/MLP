@@ -4,6 +4,7 @@ import pandas as pd
 from sklearn.utils import shuffle
 import MLP
 import matplotlib.pyplot as plt
+import time
 
 
 # ----------------preprocessing dataset------------------
@@ -58,8 +59,9 @@ mlp.initialize(dataset[0:120,0:4],dataset[0:120,4:7])
 # ---------------Training---------------
 eta = 0.01
 epoch = 200
+t_start = time.time()
 mlp.train(eta,epoch)
-
+t_end = time.time()
 
 
 # ----------------------Testing----------------------
@@ -69,7 +71,8 @@ for d in range(len(test_data)):
     err += int(np.argmax(output) != np.argmax(test_target[d]))
 
 accuracy = ((1-err/len(test_data)) * 100) 
-print(F'Accuracy= {accuracy:.2f}%')
+print(f'Accuracy= {accuracy:.2f}%')
+print(f"time to learn: {(t_end - t_start):.2f} sec" )
 
 
 
